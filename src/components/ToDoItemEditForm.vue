@@ -2,7 +2,13 @@
   <form class="stack-small" @submit.prevent="onSubmit">
     <div>
       <label class="edit-label">Edit Name for &quot;{{ label }}&quot;</label>
-      <input :id="id" type="text" autocomplete="off" v-model.lazy.trim="newLabel" />
+      <input
+        :id="id"
+        ref="labelInput"
+        type="text"
+        autocomplete="off"
+        v-model.lazy.trim="newLabel"
+      />
     </div>
     <div class="btn-group">
       <button type="button" class="btn" @click="onCancel">
@@ -19,6 +25,10 @@
 
 <script lang="ts">
 export default {
+  mounted() {
+    const labelInputRef = this.$refs.labelInput as HTMLInputElement
+    labelInputRef.focus()
+  },
   props: {
     label: {
       type: String,
